@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useAuthentication } from '../hooks/authentication'
 
 export const Home = (): JSX.Element => {
@@ -30,6 +31,9 @@ export const Home = (): JSX.Element => {
         </button>
 
         <p>{user?.uid || '未ログイン'}</p>
+        <Link href="nextpage">
+          <a>Go to page2</a>
+        </Link>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
