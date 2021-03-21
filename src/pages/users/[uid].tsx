@@ -65,7 +65,14 @@ const UserShow: React.FC = () => {
         </div>
       </nav>
       <div className="container">
-        <div>{user.name.length ? user.name : 'now loading ...'}</div>
+        {user.name.length ? (
+          <div className="text-center">
+            <h1 className="h4">{user.name}さんのページ</h1>
+            <div className="m-5">{user.name}さんに質問しよう！</div>
+          </div>
+        ) : (
+          'now loading ...'
+        )}
       </div>
     </div>
   )
