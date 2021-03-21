@@ -31,7 +31,7 @@ export const Home = (): JSX.Element => {
         </button>
 
         <p>{user?.uid || '未ログイン'}</p>
-        <Link href="nextpage">
+        <Link href="/nextpage">
           <a>Go to page2</a>
         </Link>
 
