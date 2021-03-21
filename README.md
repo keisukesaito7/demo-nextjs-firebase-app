@@ -1,7 +1,6 @@
-## Next.js, TypeScript, prettier, ESLint, Scss, Storybook環境
+## Next.js, TypeScript, prettier, ESLint, Scss, Storybook 環境
 
-* [zennの記事](https://zenn.dev/yukishinonome/articles/bfb4a79a4b81b0)を参考に環境構築
-
+- [zenn の記事](https://zenn.dev/yukishinonome/articles/bfb4a79a4b81b0)を参考に環境構築
 
 ## 環境構築
 
@@ -15,6 +14,7 @@ $ yarn install
 
 $ yarn dev
 ```
+
 ---
 
 # NextJS Typescript Boilerplate
