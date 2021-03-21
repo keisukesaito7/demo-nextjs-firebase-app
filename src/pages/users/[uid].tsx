@@ -3,6 +3,8 @@ import { NextRouter, useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { User } from '../../models/User'
 import firebase from 'firebase/app'
+import Layout from '../../components/Layout'
+import Link from 'next/link'
 
 const defaultUser: User = {
   uid: '',
@@ -45,7 +47,21 @@ const UserShow: React.FC = () => {
   }, [query.uid])
 
   // defaultUserが表示されるので、nameがからのときに
-  return <div>{user.name.length ? user.name : 'now loading ...'}</div>
+  return (
+    <Layout>
+      {user.name.length ? (
+        <div className="text-center">
+          <h1 className="h4">{user.name}さんのページ</h1>
+          <div className="m-5">{user.name}さんに質問しよう！</div>
+          <Link href="/">
+            <a>Go To RootPage</a>
+          </Link>
+        </div>
+      ) : (
+        'now loading ...'
+      )}
+    </Layout>
+  )
 }
 
 export default UserShow

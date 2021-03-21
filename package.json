@@ -31,6 +31,7 @@
     "npm": "npmではなくyarnを使ってください"
   },
   "dependencies": {
+    "bootstrap": "4.5",
     "firebase": "^8.3.1",
     "next": "latest",
     "react": "^17.0.1",
