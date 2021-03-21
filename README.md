@@ -1,6 +1,6 @@
-## firebaseとNext.js
+## firebase と Next.js
 
-- 環境変数は``.env.local``で管理
+- 環境変数は`.env.local`で管理
 - [参考記事](https://zenn.dev/dala/books/nextjs-firebase-service)
 
 ## clone
