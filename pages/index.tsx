@@ -1,5 +1,5 @@
-import '../lib/firebase'
-import '../lib/authentication'
+// import '../lib/firebase'
+// import '../lib/authentication'
 import Head from 'next/head'
 import Image from 'next/image'
 
