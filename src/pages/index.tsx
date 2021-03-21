@@ -34,6 +34,10 @@ export const Home = (): JSX.Element => {
         <Link href="/nextpage">
           <a>Go to page2</a>
         </Link>
+        <br></br>
+        <Link href={`/users/${user?.uid}`}>
+          <a>Go to UserPage (for {user?.uid})</a>
+        </Link>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
