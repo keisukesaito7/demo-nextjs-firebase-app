@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useState, useEffect } from 'react'
 import { useAuthentication } from '../../hooks/authentication'
 import firebase from 'firebase/app'
@@ -41,11 +42,25 @@ const QuestionReceived: React.FC = () => {
 
   return (
     <Layout>
-      {questions.length ? (
-        <div>質問数: {questions.length}</div>
-      ) : (
-        <div className="spinner-border text-secondary" role="status"></div>
-      )}
+      <h1 className="h4">受け取った質問一覧</h1>
+
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-6">
+          {questions.length ? (
+            questions.map((question) => {
+              return (
+                <div className="card p-0" key={question.id}>
+                  <div className="card-body">
+                    <div className="text-truncate">{question.body}</div>
+                  </div>
+                </div>
+              )
+            })
+          ) : (
+            <div className="spinner-border text-secondary" role="status"></div>
+          )}
+        </div>
+      </div>
     </Layout>
   )
 }
