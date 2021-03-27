@@ -65,7 +65,7 @@ const UserShow: React.FC = () => {
     setIsSending(false)
     setBody('')
     toast.success('質問を送信しました。', {
-      position: 'bottom-left',
+      position: 'bottom-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -95,7 +95,7 @@ const UserShow: React.FC = () => {
                   rows={6}
                   value={body}
                   onChange={(e) => setBody(e.target.value)}
-                  placeholder="hello?"
+                  placeholder="好きな食べ物は何ですか？"
                   required
                 ></textarea>
                 <div className="m-3">
@@ -105,7 +105,11 @@ const UserShow: React.FC = () => {
                       role="status"
                     ></div>
                   ) : (
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={body.length ? false : true}
+                    >
                       質問を送信する
                     </button>
                   )}
