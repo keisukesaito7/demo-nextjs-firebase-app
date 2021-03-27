@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { NextRouter, useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { User } from '../../models/User'
 import firebase from 'firebase/app'
 import Layout from '../../components/Layout'
@@ -47,6 +47,21 @@ const UserShow: React.FC = () => {
     loadUser()
   }, [query.uid])
 
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    await firebase.firestore().collection('questions').add({
+      senderUid: firebase.auth().currentUser.uid,
+      receiverUid: user.uid,
+      body,
+      isReplied: false,
+      createAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+
+    setBody('')
+    alert('質問を送信しました')
+  }
+
   // defaultUserが表示されるので、nameがからのときに
   return (
     <Layout>
@@ -61,7 +76,7 @@ const UserShow: React.FC = () => {
           </div>
           <div className="row justify-content-center mb-3">
             <div className="col-12 col-md-6">
-              <form>
+              <form onSubmit={onSubmit}>
                 <textarea
                   className="form-control"
                   rows={6}
