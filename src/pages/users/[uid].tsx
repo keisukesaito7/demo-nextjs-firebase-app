@@ -50,13 +50,32 @@ const UserShow: React.FC = () => {
   return (
     <Layout>
       {user.name.length ? (
-        <div className="text-center">
-          <h1 className="h4">{user.name}さんのページ</h1>
-          <div className="m-5">{user.name}さんに質問しよう！</div>
-          <Link href="/">
-            <a>Go To RootPage</a>
-          </Link>
-        </div>
+        <>
+          <div className="text-center">
+            <h1 className="h4">{user.name}さんのページ</h1>
+            <div className="m-5">{user.name}さんに質問しよう！</div>
+            <Link href="/">
+              <a>Go To RootPage</a>
+            </Link>
+          </div>
+          <div className="row justify-content-center mb-3">
+            <div className="col-12 col-md-6">
+              <form>
+                <textarea
+                  className="form-control"
+                  rows={6}
+                  placeholder="hello?"
+                  required
+                ></textarea>
+                <div className="m-3">
+                  <button type="submit" className="btn btn-primary">
+                    質問を送信する
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </>
       ) : (
         'now loading ...'
       )}
