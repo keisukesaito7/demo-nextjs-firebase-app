@@ -41,7 +41,11 @@ const QuestionReceived: React.FC = () => {
 
   return (
     <Layout>
-      <div>{questions.length}</div>
+      {questions.length ? (
+        <div>質問数: {questions.length}</div>
+      ) : (
+        <div className="spinner-border text-secondary" role="status"></div>
+      )}
     </Layout>
   )
 }
