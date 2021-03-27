@@ -18,6 +18,7 @@ type Query = {
 
 const UserShow: React.FC = () => {
   const [user, setUser] = useState<User>(defaultUser)
+  const [body, setBody] = useState('')
   const router: NextRouter = useRouter()
   const query = router.query as Query
 
@@ -64,6 +65,8 @@ const UserShow: React.FC = () => {
                 <textarea
                   className="form-control"
                   rows={6}
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}
                   placeholder="hello?"
                   required
                 ></textarea>
