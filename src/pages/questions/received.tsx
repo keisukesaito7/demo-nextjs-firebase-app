@@ -5,6 +5,7 @@ import { useAuthentication } from '../../hooks/authentication'
 import firebase from 'firebase/app'
 import { Question } from '../../models/Question'
 import Layout from '../../components/Layout'
+import dayjs from 'dayjs'
 
 const QuestionReceived: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([])
@@ -52,6 +53,13 @@ const QuestionReceived: React.FC = () => {
                 <div className="card p-0" key={question.id}>
                   <div className="card-body">
                     <div className="text-truncate">{question.body}</div>
+                    <div className="text-muted text-end">
+                      <small>
+                        {dayjs(question.createdAt?.toDate()).format(
+                          'YYYY/MM/DD HH:mm'
+                        )}
+                      </small>
+                    </div>
                   </div>
                 </div>
               )
