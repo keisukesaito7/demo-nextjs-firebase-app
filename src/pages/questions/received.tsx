@@ -25,11 +25,12 @@ const QuestionReceived: React.FC = () => {
         .firestore()
         .collection('questions')
         .where('receiverUid', '==', user.uid)
-        // .orderBy('createdAt', 'desc')
+        .orderBy('createdAt', 'desc')
         .get()
 
       if (snapshot.empty) {
-        return
+        // eslint-disable-next-line no-console
+        return console.log('empty')
       }
 
       const gotQuestions = snapshot.docs.map((doc) => {
@@ -50,7 +51,10 @@ const QuestionReceived: React.FC = () => {
         <a>Home</a>
       </Link>
       <div className="row justify-content-center">
-        <div className="col-12 col-md-6">
+        <div
+          className="col-12 col-md-6"
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
           {questions.length ? (
             questions.map((question) => {
               return (
