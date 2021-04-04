@@ -6,6 +6,7 @@ import firebase from 'firebase/app'
 import { Question } from '../../models/Question'
 import Layout from '../../components/Layout'
 import dayjs from 'dayjs'
+import Link from 'next/link'
 
 const QuestionReceived: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([])
@@ -24,7 +25,7 @@ const QuestionReceived: React.FC = () => {
         .firestore()
         .collection('questions')
         .where('receiverUid', '==', user.uid)
-        .orderBy('createdAt', 'desc')
+        // .orderBy('createdAt', 'desc')
         .get()
 
       if (snapshot.empty) {
@@ -45,7 +46,9 @@ const QuestionReceived: React.FC = () => {
   return (
     <Layout>
       <h1 className="h4">受け取った質問一覧</h1>
-
+      <Link href="/">
+        <a>Home</a>
+      </Link>
       <div className="row justify-content-center">
         <div className="col-12 col-md-6">
           {questions.length ? (
