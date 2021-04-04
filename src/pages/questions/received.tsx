@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuthentication } from '../../hooks/authentication'
 import firebase from 'firebase/app'
 import { Question } from '../../models/Question'
@@ -10,7 +10,9 @@ import Link from 'next/link'
 
 const QuestionReceived: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([])
+  const [isPaginationFinished, setIsPaginationFinished] = useState(false)
   const { user } = useAuthentication()
+  const scrollContainerRef = useRef(null)
 
   const createBaseQuery = () => {
     return firebase
@@ -36,8 +38,8 @@ const QuestionReceived: React.FC = () => {
     const snapshot = await createBaseQuery().get()
 
     if (snapshot.empty) {
-      // eslint-disable-next-line no-console
-      return console.log('snapshot: empty')
+      setIsPaginationFinished(true)
+      return
     }
 
     appendQuestions(snapshot)
@@ -71,6 +73,31 @@ const QuestionReceived: React.FC = () => {
     loadQuestions()
   }, [process.browser, user])
 
+  const onScroll = () => {
+    if (isPaginationFinished) {
+      return
+    }
+
+    const container = scrollContainerRef.current
+    if (container === null) {
+      return
+    }
+
+    const rect = container.getBoundingClientRect()
+    if (rect.top + rect.height > window.innerHeight) {
+      return
+    }
+
+    loadNextQuestions()
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [questions, scrollContainerRef.current, isPaginationFinished])
+
   return (
     <Layout>
       <h1 className="h4">受け取った質問一覧</h1>
@@ -78,10 +105,7 @@ const QuestionReceived: React.FC = () => {
         <a>Home</a>
       </Link>
       <div className="row justify-content-center">
-        <div
-          className="col-12 col-md-6"
-          // style={{ display: 'flex', justifyContent: 'center' }}
-        >
+        <div className="col-12 col-md-6" ref={scrollContainerRef}>
           {questions.length ? (
             questions.map((question) => {
               return (
