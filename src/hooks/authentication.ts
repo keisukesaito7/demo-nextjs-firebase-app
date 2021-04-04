@@ -29,9 +29,6 @@ export function useAuthentication(): { user: User } {
       return
     }
 
-    // eslint-disable-next-line no-console
-    console.log('Start useEffect')
-
     firebase
       .auth()
       .signInAnonymously()
