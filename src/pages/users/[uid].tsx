@@ -59,7 +59,7 @@ const UserShow: React.FC = () => {
       receiverUid: user.uid,
       body,
       isReplied: false,
-      createAt: firebase.firestore.FieldValue.serverTimestamp()
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     })
 
     setIsSending(false)

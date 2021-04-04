@@ -30,7 +30,7 @@ const QuestionReceived: React.FC = () => {
 
       if (snapshot.empty) {
         // eslint-disable-next-line no-console
-        return console.log('empty')
+        return console.log('snapshot: empty')
       }
 
       const gotQuestions = snapshot.docs.map((doc) => {
