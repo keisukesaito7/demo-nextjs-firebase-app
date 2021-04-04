@@ -12,33 +12,60 @@ const QuestionReceived: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([])
   const { user } = useAuthentication()
 
+  const createBaseQuery = () => {
+    return firebase
+      .firestore()
+      .collection('questions')
+      .where('receiverUid', '==', user.uid)
+      .orderBy('createdAt', 'desc')
+      .limit(10)
+  }
+
+  const appendQuestions = (
+    snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+  ) => {
+    const gotQuestions = snapshot.docs.map((doc) => {
+      const question = doc.data() as Question
+      question.id = doc.id
+      return question
+    })
+    setQuestions(questions.concat(gotQuestions))
+  }
+
+  const loadQuestions = async () => {
+    const snapshot = await createBaseQuery().get()
+
+    if (snapshot.empty) {
+      // eslint-disable-next-line no-console
+      return console.log('snapshot: empty')
+    }
+
+    appendQuestions(snapshot)
+  }
+
+  const loadNextQuestions = async () => {
+    if (questions.length === 0) {
+      return
+    }
+
+    const lastQuestion = questions[questions.length - 1]
+    const snapshot = await createBaseQuery()
+      .startAfter(lastQuestion.createdAt)
+      .get()
+
+    if (snapshot.empty) {
+      return
+    }
+
+    appendQuestions(snapshot)
+  }
+
   useEffect(() => {
     if (!process.browser) {
       return
     }
     if (user === null) {
       return
-    }
-
-    const loadQuestions = async () => {
-      const snapshot = await firebase
-        .firestore()
-        .collection('questions')
-        .where('receiverUid', '==', user.uid)
-        .orderBy('createdAt', 'desc')
-        .get()
-
-      if (snapshot.empty) {
-        // eslint-disable-next-line no-console
-        return console.log('snapshot: empty')
-      }
-
-      const gotQuestions = snapshot.docs.map((doc) => {
-        const question = doc.data() as Question
-        question.id = doc.id
-        return question
-      })
-      setQuestions(gotQuestions)
     }
 
     loadQuestions()
