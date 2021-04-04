@@ -53,7 +53,7 @@ const QuestionReceived: React.FC = () => {
       <div className="row justify-content-center">
         <div
           className="col-12 col-md-6"
-          style={{ display: 'flex', justifyContent: 'center' }}
+          // style={{ display: 'flex', justifyContent: 'center' }}
         >
           {questions.length ? (
             questions.map((question) => {
